@@ -2,6 +2,7 @@ package mvc.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -31,31 +32,19 @@ public class MvcController {
 	}
 
 	@RequestMapping("/test2/abc*")
-	@ResponseBody
 	public String test2_c() {
-		return "*";
+		return "mv";
 	}
-
-
 
 	@RequestMapping("/test2/**")
 	@ResponseBody
-	public Mode test2_d() {
-		return new Mode("a", "b");
-	}
-
-	@RequestMapping("/test3/mv")
-	public String test3() {
-		return "mv";
+	public Mode test2_d(@RequestBody Mode mode) {
+		return mode;
 	}
 
 	public static class Mode {
 		public String a;
 		public String b;
 
-		public Mode(String a, String b) {
-			this.a = a;
-			this.b = b;
-		}
 	}
 }
