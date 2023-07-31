@@ -13,6 +13,7 @@ import java.util.List;
 
 
 /**
+ * mvc 配置
  * @author xinLin.huang
  * @date 2023/7/24 14:54
  */
@@ -27,11 +28,8 @@ public class MvcConfig {
 	}
 
 	static class WebMvcConfig implements WebMvcConfigurer {
-		@Override
-		public void addInterceptors(InterceptorRegistry registry) {
-			registry.addInterceptor(new MvcInterceptor());
-		}
 
+		//配置视图解析器
 		@Override
 		public void configureViewResolvers(ViewResolverRegistry registry) {
 			InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -40,9 +38,16 @@ public class MvcConfig {
 			registry.viewResolver(viewResolver);
 		}
 
+		//配置消息转化器
 		@Override
 		public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
 			converters.add(new MappingJackson2HttpMessageConverter());
+		}
+
+		//配置拦截器
+		@Override
+		public void addInterceptors(InterceptorRegistry registry) {
+			registry.addInterceptor(new MvcInterceptor());
 		}
 	}
 
